@@ -5,6 +5,7 @@ const { sequelize } = require("./models");
 
 // load modules
 const express = require("express");
+var cors = require("cors");
 const morgan = require("morgan");
 const routes = require("./routes");
 
@@ -14,6 +15,16 @@ const enableGlobalErrorLogging =
 
 // create the Express app
 const app = express();
+
+app.use(cors());
+
+app.get("/products/:id", function (req, res, next) {
+  res.json({ msg: "This is CORS-enabled for all origins!" });
+});
+
+app.listen(80, function () {
+  console.log("CORS-enabled web server listening on port 80");
+});
 
 // JSON parser
 app.use(express.json());
